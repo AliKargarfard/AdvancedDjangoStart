@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 # from django.contrib.auth.forms import ReadOnlyPasswordHashField
 # from django.core.exceptions import ValidationError
 
-from .models import User
+from .models import User,Profile
 
 # Register your models here.
 
@@ -21,7 +21,7 @@ from .models import User
 
 #     class Meta:
 #         model = User
-#         fields = ["email"]
+#         fields = ["email", "password1", "password2"]
 
 #     def clean_password2(self):
 #         # Check that the two password entries match
@@ -64,18 +64,43 @@ class UserAdmin(BaseUserAdmin):
     list_display = ["email", "is_superuser"]
     list_filter = ["is_superuser"]
     fieldsets = [
-        (None, {"fields": ["email", "password"]}),
+        ('Authentication', {"fields": ["email", "password"]}),
         # ("Personal info", {"fields": ["date_of_birth"]}),
-        ("Permissions", {"fields": ["is_superuser"]}),
+        ("Permissions", {"fields": ["is_active", "is_staff", "is_superuser"]}),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = [
         (
-            None,
+            'Authentication',
             {
-                # "classes": ["wide"],
-                "fields": ["email", "password1", "password2"],
+                "classes": ["wide"],
+                "fields": ["email", "password1", "password2","is_staff", "is_superuser", "is_active"],
+            },
+        ),]     
+    fieldsets = [
+        (
+            'Authentication',
+            {
+                "fields": ["email", "password"],
+            },
+        ),        
+        (
+            'Permissions',
+            {
+                "fields": ["is_staff", "is_superuser", "is_active"],
+            },
+        ),        
+        (
+            'Group Permissions',
+            {
+                "fields": ["groups", "user_permissions"],
+            },
+        ),        
+        (
+            'Impotant dates',
+            {
+                "fields": ["last_login"],
             },
         ),
     ]
@@ -86,6 +111,7 @@ class UserAdmin(BaseUserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
+admin.site.register(Profile)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 # admin.site.unregister(Group)
