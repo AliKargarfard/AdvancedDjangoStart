@@ -15,15 +15,14 @@
             <a href="{% url 'blog:detail-of-post' pk=post.id %}">
                 <h3> {{post.id}} {{post.title}}</h3>
             </a>
+            <h4>{{post.author}} - {{post.published_date}} </h4>
             <div>
                 <a href="{% url 'blog:edit-post' pk=post.id %}">
-                    <h3> EDIT</h3>
-                </a>
+                    <small>EDIT</small> </a>
+                <br>
                 <a href="{% url 'blog:delete-post' pk=post.id %}">
-                    <h3> DELETE</h3>
-                </a>
+                    <small>DELETE</small> </a>
             </div>
-            <small>{{post.author}} - {{post.published_date}} </small>
         </li>
         {% endfor %}
     </ol>

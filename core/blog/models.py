@@ -7,7 +7,7 @@ from django.urls import reverse
 User = get_user_model()
 
 class Post (models.Model):
-    author = models.ForeignKey('accounts.Profile',on_delete=models.CASCADE)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     image = models.ImageField(null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL,null=True)

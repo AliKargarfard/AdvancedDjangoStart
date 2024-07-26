@@ -89,12 +89,15 @@ class PostList(ListCreateAPIView):
 @api_view(['GET','PUT','DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def postDetails(request,id):
+    # return error message using try catch
     # try:
     #     post = Post.objects.get(pk=id)
     #     serialized = PostSerializer(post)
     #     return Response(serialized.data)
     # except Post.DoesNotExist:
     #     return Response({'detail':"Record dosn't exist"},status=status.HTTP_404_NOT_FOUND)
+
+    # return error message using get_object_or_404() function
     post = get_object_or_404(Post,pk=id)
     if request.method  == 'GET':
         serialized = PostSerializer(post)
