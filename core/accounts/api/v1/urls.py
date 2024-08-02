@@ -1,10 +1,10 @@
 from django.urls import path, include
-from .views import RegistrationApiView
+from . import views
 
 app_name = 'api-v1'
 
 urlpatterns = [
     # registration
-    path('register/', RegistrationApiView.as_view(),name='registration'),
+    path('registration/', views.RegistrationApiView.as_view(),name='registration'),
 
  ]

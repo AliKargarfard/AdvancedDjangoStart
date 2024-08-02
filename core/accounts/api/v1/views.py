@@ -7,10 +7,12 @@ class RegistrationApiView(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = RegistrationSerializer(data=request.data)
-        if serializer.is_valied():
+        if serializer.is_valid():
             serializer.save()
             data = {
-                'email': serializer.validation_data['email']
-            }
-            return Response(data, status=status.HTTP_201_CREATED)
+                'email':serializer.validated_data['email']
+                }
+            print ('...................',data)
+            return Response(data,status=status.HTTP_201_CREATED)
+        return Response({'detail':'data is not valid'},status=status.HTTP_400_BAD_REQUEST)
 
