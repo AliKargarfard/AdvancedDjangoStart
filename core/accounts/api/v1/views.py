@@ -14,5 +14,5 @@ class RegistrationApiView(generics.GenericAPIView):
                 }
             print ('...................',data)
             return Response(data,status=status.HTTP_201_CREATED)
-        return Response({'detail':'data is not valid'},status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
