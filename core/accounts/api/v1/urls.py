@@ -1,12 +1,12 @@
 from django.urls import path, include
 from . import views
-from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.authtoken.views import obtain_auth_token, ObtainAuthToken
 
 app_name = 'api-v1'
 
 urlpatterns = [
     # registration
     path('registration/', views.RegistrationApiView.as_view(),name='registration'),
-    path('token/signin', obtain_auth_token,name='token-signin'),
+    path('token/login/', views.CustomAuthToken.as_view(),name='token-sign-in'),
 
  ]
