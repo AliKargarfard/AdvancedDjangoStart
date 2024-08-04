@@ -8,5 +8,6 @@ urlpatterns = [
     # registration
     path('registration/', views.RegistrationApiView.as_view(),name='registration'),
     path('token/login/', views.CustomAuthToken.as_view(),name='token-sign-in'),
+    path('token/logout/', views.CustomDeleteAuthToken.as_view(),name='token-sign-out'),
 
  ]
