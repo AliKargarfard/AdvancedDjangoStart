@@ -1,9 +1,12 @@
 from rest_framework import generics, status
+from ...models import Profile
+from django.shortcuts import get_object_or_404
 from .serializers import (
     RegistrationSerializer,
     CustomAuthTokenSerializer,
     CustomTokenOptainPairSerializer,
-    ChangePasswordSerializer
+    ChangePasswordSerializer,
+    ProfileSerializer
 )
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -62,16 +65,25 @@ class ChangePasswordView(generics.GenericAPIView):
     serializer_class = ChangePasswordSerializer
 
     def get_object(self, queryset=None):
-        obj = self.queryset.user
-        return (obj)
+        object = self.request.user
+        return (object)
         
     def put(self, request, *args, **kwargs):
-        self.get_object = self.get_object()
-        serializer = self.serializer(data = reuest.data)
+        self.object = self.get_object()
+        serializer = self.get_serializer(data = request.data)
         if serializer.is_valid():
-            if not self.object.check_password(serializet.data.get('old_password')):
+            if not self.object.check_password(serializer.data.get('old_password')):
                 return Response({'old_password':['wrong password']},status= status.HTTP_400_BAD_REQUEST)
-                self.object.set_password(serializet.data.get('new_password'))
-                self.object(save)
+            self.object.set_password(serializer.data.get('new_password'))
+            self.object.save()
             return Response({'detail': 'password changed successfully'},status= status.HTTP_200_OK)
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+class ProfileApiView(generics.RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        object = get_object_or_404(queryset, user=self.request.user)
+        return object
