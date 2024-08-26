@@ -80,6 +80,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 class ProfileSerializer(serializers.ModelSerializer):    
     email = serializers.CharField(source= 'user.email',read_only=True)
+    
 
     class Meta:
         model = Profile

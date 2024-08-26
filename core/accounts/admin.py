@@ -61,12 +61,12 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ["email", "is_superuser"]
-    list_filter = ["is_superuser"]
+    list_display = ["email", "is_superuser", "is_active", "is_verified"]
+    list_filter = ["email", "is_active", "is_superuser", "is_verified"]
     fieldsets = [
         ('Authentication', {"fields": ["email", "password"]}),
         # ("Personal info", {"fields": ["date_of_birth"]}),
-        ("Permissions", {"fields": ["is_active", "is_staff", "is_superuser"]}),
+        ("Permissions", {"fields": ["is_active", "is_staff", "is_superuser", "is_verified"]}),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -75,7 +75,7 @@ class UserAdmin(BaseUserAdmin):
             'Authentication',
             {
                 "classes": ["wide"],
-                "fields": ["email", "password1", "password2","is_staff", "is_superuser", "is_active"],
+                "fields": ["email", "password1", "password2","is_staff", "is_superuser", "is_active", "is_staff", "is_verified"],
             },
         ),]     
     fieldsets = [
@@ -88,7 +88,7 @@ class UserAdmin(BaseUserAdmin):
         (
             'Permissions',
             {
-                "fields": ["is_staff", "is_superuser", "is_active"],
+                "fields": ["is_staff", "is_superuser", "is_active", "is_verified"],
             },
         ),        
         (
