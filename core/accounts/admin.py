@@ -1,11 +1,13 @@
 # from django import forms
 from django.contrib import admin
+
 # from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
 # from django.contrib.auth.forms import ReadOnlyPasswordHashField
 # from django.core.exceptions import ValidationError
 
-from .models import User,Profile
+from .models import User, Profile
 
 # Register your models here.
 
@@ -64,41 +66,66 @@ class UserAdmin(BaseUserAdmin):
     list_display = ["email", "is_superuser", "is_active", "is_verified"]
     list_filter = ["email", "is_active", "is_superuser", "is_verified"]
     fieldsets = [
-        ('Authentication', {"fields": ["email", "password"]}),
+        ("Authentication", {"fields": ["email", "password"]}),
         # ("Personal info", {"fields": ["date_of_birth"]}),
-        ("Permissions", {"fields": ["is_active", "is_staff", "is_superuser", "is_verified"]}),
+        (
+            "Permissions",
+            {
+                "fields": [
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "is_verified",
+                ]
+            },
+        ),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = [
         (
-            'Authentication',
+            "Authentication",
             {
                 "classes": ["wide"],
-                "fields": ["email", "password1", "password2","is_staff", "is_superuser", "is_active", "is_staff", "is_verified"],
+                "fields": [
+                    "email",
+                    "password1",
+                    "password2",
+                    "is_staff",
+                    "is_superuser",
+                    "is_active",
+                    "is_staff",
+                    "is_verified",
+                ],
             },
-        ),]     
+        ),
+    ]
     fieldsets = [
         (
-            'Authentication',
+            "Authentication",
             {
                 "fields": ["email", "password"],
             },
-        ),        
+        ),
         (
-            'Permissions',
+            "Permissions",
             {
-                "fields": ["is_staff", "is_superuser", "is_active", "is_verified"],
+                "fields": [
+                    "is_staff",
+                    "is_superuser",
+                    "is_active",
+                    "is_verified",
+                ],
             },
-        ),        
+        ),
         (
-            'Group Permissions',
+            "Group Permissions",
             {
                 "fields": ["groups", "user_permissions"],
             },
-        ),        
+        ),
         (
-            'Impotant dates',
+            "Impotant dates",
             {
                 "fields": ["last_login"],
             },

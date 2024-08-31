@@ -1,14 +1,15 @@
 from django import forms
 from .models import Post
 
+
 class DateInput(forms.DateInput):
-    input_type = 'date'
-    
+    input_type = "date"
+
+
 class PostCreateForm(forms.ModelForm):
-    class Meta :
+    class Meta:
         model = Post
-        fields = ('title', 'content', 'category',
-                  'status', 'published_date')
+        fields = ("title", "content", "category", "status", "published_date")
         widgets = {
-            'published_date': DateInput(),
+            "published_date": DateInput(),
         }
