@@ -9,6 +9,7 @@ urlpatterns = [
     # path('cbv',TemplateView.as_view(template_name='index.html',extra_context={"name":"Ali"} )),
     path("cbv", views.IndexView.as_view(), name="cbv-index"),
     path("posts/", views.PostListView.as_view(), name="list-of-posts"),
+    path("posts/api/", views.PostListApiView.as_view(), name="list-of-api-posts"),
     path(
         "posts/<int:pk>",
         views.PostDetailView.as_view(),
