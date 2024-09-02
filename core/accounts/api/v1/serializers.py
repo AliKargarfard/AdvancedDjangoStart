@@ -66,7 +66,7 @@ class CustomAuthTokenSerializer(serializers.Serializer):
         else:
             msg = _('Must include "username" and "password".')
             raise serializers.ValidationError(msg, code="authorization")
-
+        print (user,'....................')
         attrs["user"] = user
         return attrs
 

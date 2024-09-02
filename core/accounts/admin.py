@@ -125,7 +125,7 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
         (
-            "Impotant dates",
+            "Important dates",
             {
                 "fields": ["last_login"],
             },
